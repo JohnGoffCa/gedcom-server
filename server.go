@@ -7,15 +7,21 @@ import (
 	"io/ioutil"
 	"log"
 	"net/http"
-	"strings"
+  "os"
 )
 
 func printGedcom(w http.ResponseWriter, r *http.Request) {
-	data, _ := ioutil.ReadFile("testdata/sample.ged")
+	data, err := ioutil.ReadFile("assets/gedcom/sample.ged")
+	if err != nil {
+		log.Fatal("Error reading file:", err)
+	}
 
 	d := gedcom.NewDecoder(bytes.NewReader(data))
 
-	g, _ := d.Decode()
+	g, err := d.Decode()
+	if err != nil {
+		log.Fatal("Error decoding GEDCOM:", err)
+	}
 
 	for _, rec := range g.Individual {
 		if len(rec.Name) > 0 {
@@ -26,8 +32,20 @@ func printGedcom(w http.ResponseWriter, r *http.Request) {
 
 func main() {
 	http.HandleFunc("/", printGedcom)
-	err := http.ListenAndServe(":9090", nil)
-	if err != nil {
-		log.Fatal("ListenAndServe:", err)
-	}
+  var port string
+  ch := make(chan byte, 1)
+  if p := os.Getenv("PORT"); p != "" {
+    port = p
+  } else {
+    port = "9090"
+  }
+	go func() {
+    err := http.ListenAndServe(":" + port, nil)
+	  if err != nil {
+	  	log.Fatal("ListenAndServe:", err)
+	  }
+    ch <- 1
+  }()
+  fmt.Println("Listening on port :" + port)
+  <-ch
 }
