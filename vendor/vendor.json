@@ -1,0 +1,23 @@
+{
+	"comment": "",
+	"ignore": "test",
+	"package": [
+		{
+			"checksumSHA1": "h1VvjixEyjuuVkcjBkAvBT96HYc=",
+			"path": "github.com/husobee/vestigo",
+			"revision": "f8f5b5dc2bd74408887fd4b462055e324c4cbd63",
+			"revisionTime": "2017-08-28T23:43:07Z"
+		},
+		{
+			"checksumSHA1": "h+TzOCluzf3ogP6/o6Q4PacN8vo=",
+			"path": "github.com/iand/gedcom",
+			"revision": "d9a3f811294524596e6428a1b7fc2afcc3bd8fb3",
+			"revisionTime": "2017-08-27T11:50:26Z"
+		},
+		{
+			"path": "https://github.com/husobee/vestigo",
+			"revision": ""
+		}
+	],
+	"rootPath": "github.com/JohnTheScout/gedcom-server"
+}
