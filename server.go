@@ -3,6 +3,7 @@ package main
 import (
 	"bytes"
 	"fmt"
+	//"github.com/husobee/vestigo"
 	"github.com/iand/gedcom"
 	"io/ioutil"
 	"log"
@@ -47,10 +48,7 @@ func main() {
 		port = "9090"
 	}
 	go func() {
-		err := http.ListenAndServe(":"+port, nil)
-		if err != nil {
-			log.Fatal("ListenAndServe:", err)
-		}
+		log.Fatal("ListenAndServe:", http.ListenAndServe(":"+port, nil))
 		ch <- 1
 	}()
 	fmt.Println("Listening on port :" + port)
