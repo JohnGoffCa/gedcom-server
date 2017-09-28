@@ -3,7 +3,7 @@ package main
 import (
 	"bytes"
 	"fmt"
-	//"github.com/husobee/vestigo"
+	"github.com/husobee/vestigo"
 	"github.com/iand/gedcom"
 	"io/ioutil"
 	"log"
@@ -39,18 +39,23 @@ func printGedcom(w http.ResponseWriter, r *http.Request) {
 }
 
 func main() {
-	http.HandleFunc("/", printGedcom)
-	var port string
 	ch := make(chan byte, 1)
+	router := vestigo.NewRouter()
+	var port string
 	if p := os.Getenv("PORT"); p != "" {
 		port = p
 	} else {
 		port = "9090"
 	}
+
+	router.Get("/", printGedcom)
+
+	//run server in goroutine to print after the server has started
 	go func() {
-		log.Fatal("ListenAndServe:", http.ListenAndServe(":"+port, nil))
+		log.Fatal("ListenAndServe:", http.ListenAndServe(":"+port, router))
 		ch <- 1
 	}()
+
 	fmt.Println("Listening on port :" + port)
-	<-ch
+	<-ch //prevent main function from exiting automatically
 }
