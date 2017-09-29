@@ -48,7 +48,11 @@ func main() {
 		port = "9090"
 	}
 
-	router.Get("/", printGedcom)
+	////////////
+	// ROUTES //
+	////////////
+	router.Get("/", http.FileServer(http.Dir("./assets")).ServeHTTP)
+	router.Get("/api", printGedcom)
 
 	//run server in goroutine to print after the server has started
 	go func() {

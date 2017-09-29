@@ -1,3 +1,5 @@
 .DS_Store
 .Trashes
 gedcom.js
+# ignore build file
+gedcom-server
