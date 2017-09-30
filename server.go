@@ -52,7 +52,8 @@ func main() {
 	// ROUTES //
 	////////////
 	router.Get("/", http.FileServer(http.Dir("./assets")).ServeHTTP)
-	router.Get("/api", printGedcom)
+	router.Get("/api/individual/:id", printGedcom)
+	router.Get("/api/family/:id", printGedcom)
 
 	//run server in goroutine to print after the server has started
 	go func() {
