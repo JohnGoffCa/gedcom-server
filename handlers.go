@@ -30,7 +30,9 @@ func parseGedcomFile() *gedcom.Gedcom {
 }
 
 func fixName(name string) string {
-	return strings.Replace(name, "/", "", -1)
+	fixed := strings.Replace(name, "/", "", -1)
+	fixed = strings.Replace(fixed, "\"", "\\\"", -1)
+	return fixed
 }
 
 func familyList(w http.ResponseWriter, r *http.Request) {
@@ -45,16 +47,21 @@ func family(w http.ResponseWriter, r *http.Request) {
 			continue
 		}
 
-		fmt.Fprintln(w, rec.Xref)
-		fmt.Fprintln(w, "Husband: "+fixName(rec.Husband.Name[0].Name))
-		fmt.Fprintln(w, "Wife: "+fixName(rec.Wife.Name[0].Name))
-		fmt.Fprintln(w, "Children:")
-		for _, child := range rec.Child {
+		fmt.Fprintln(w, "{")
+		fmt.Fprintln(w, `"id":"`+rec.Xref+`",`)
+		fmt.Fprintln(w, `"Husband":"`+fixName(rec.Husband.Name[0].Name)+`",`)
+		fmt.Fprintln(w, `"Wife":"`+fixName(rec.Wife.Name[0].Name)+`",`)
+		fmt.Fprintln(w, `"Children":[`)
+		for i, child := range rec.Child {
+			if i != 0 {
+				fmt.Fprint(w, ",")
+			}
 			if len(child.Name) > 0 {
-				fmt.Fprintln(w, fixName(child.Name[0].Name))
+				fmt.Fprintln(w, `"`+fixName(child.Name[0].Name)+`"`)
 			}
 		}
-		fmt.Fprintln(w, "")
+		fmt.Fprintln(w, "]")
+		fmt.Fprintln(w, "}")
 	}
 }
 
