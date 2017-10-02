@@ -36,9 +36,18 @@ func fixName(name string) string {
 }
 
 func familyList(w http.ResponseWriter, r *http.Request) {
-	for _, rec := range g.Family {
-		fmt.Fprintf(w, "%s: %s & %s\n", rec.Xref, fixName(rec.Husband.Name[0].Name), fixName(rec.Wife.Name[0].Name))
+	fmt.Fprintln(w, "{")
+	for i, rec := range g.Family {
+		if i != 0 {
+			fmt.Fprint(w, ",")
+		}
+		fmt.Fprintf(w, `"%s":["%s","%s"]`,
+			rec.Xref,
+			fixName(rec.Husband.Name[0].Name),
+			fixName(rec.Wife.Name[0].Name),
+		)
 	}
+	fmt.Fprintln(w, "}")
 }
 
 func family(w http.ResponseWriter, r *http.Request) {
@@ -66,9 +75,14 @@ func family(w http.ResponseWriter, r *http.Request) {
 }
 
 func individualList(w http.ResponseWriter, r *http.Request) {
-	for _, rec := range g.Individual {
-		fmt.Fprintf(w, "%s: %s\n", rec.Xref, fixName(rec.Name[0].Name))
+	fmt.Fprintln(w, "{")
+	for i, rec := range g.Individual {
+		if i != 0 {
+			fmt.Fprint(w, ",")
+		}
+		fmt.Fprintf(w, `"%s":"%s"`, rec.Xref, fixName(rec.Name[0].Name))
 	}
+	fmt.Fprintln(w, "}")
 }
 
 func individual(w http.ResponseWriter, r *http.Request) {
