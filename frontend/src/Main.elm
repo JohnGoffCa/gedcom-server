@@ -25,7 +25,7 @@ treeView people =
       (map detailView people)
 
 model = 
-  { people = repeat 12 examplePerson 
+  { people = repeat 12 exampleMan 
   , families = repeat 10 exampleFamily
   }
 
