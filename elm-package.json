@@ -5,7 +5,7 @@
     "license": "BSD3",
     "source-directories": [
         ".",
-        "./src"
+        "./frontend/"
     ],
     "exposed-modules": [],
     "dependencies": {

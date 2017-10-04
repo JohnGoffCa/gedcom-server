@@ -1,8 +1,0 @@
-var _user$project$Types$Person = F4(
-	function (a, b, c, d) {
-		return {name: a, birthdate: b, deathdate: c, note: d};
-	});
-var _user$project$Types$Family = F3(
-	function (a, b, c) {
-		return {husband: a, wife: b, children: c};
-	});
