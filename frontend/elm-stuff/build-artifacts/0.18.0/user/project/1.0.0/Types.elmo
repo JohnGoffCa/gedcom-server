@@ -1,0 +1,50 @@
+var _user$project$Types$exampleWoman = {
+	id: 'I2',
+	name: 'Jane Smith',
+	sex: 'f',
+	events: {ctor: '[]'},
+	attributes: {ctor: '[]'},
+	mother: _elm_lang$core$Maybe$Nothing,
+	father: _elm_lang$core$Maybe$Nothing,
+	children: {ctor: '[]'}
+};
+var _user$project$Types$exampleMan = {
+	id: 'I1',
+	name: 'John Smith',
+	sex: 'm',
+	events: {ctor: '[]'},
+	attributes: {ctor: '[]'},
+	mother: _elm_lang$core$Maybe$Nothing,
+	father: _elm_lang$core$Maybe$Nothing,
+	children: {ctor: '[]'}
+};
+var _user$project$Types$exampleFamily = {
+	husband: _user$project$Types$exampleMan,
+	wife: _user$project$Types$exampleWoman,
+	children: {ctor: '[]'}
+};
+var _user$project$Types$Person = F8(
+	function (a, b, c, d, e, f, g, h) {
+		return {id: a, name: b, sex: c, events: d, attributes: e, mother: f, father: g, children: h};
+	});
+var _user$project$Types$Event = F3(
+	function (a, b, c) {
+		return {evntType: a, date: b, place: c};
+	});
+var _user$project$Types$Attribute = F2(
+	function (a, b) {
+		return {attrType: a, value: b};
+	});
+var _user$project$Types$Family = F3(
+	function (a, b, c) {
+		return {husband: a, wife: b, children: c};
+	});
+var _user$project$Types$Mother = function (a) {
+	return {ctor: 'Mother', _0: a};
+};
+var _user$project$Types$Father = function (a) {
+	return {ctor: 'Father', _0: a};
+};
+var _user$project$Types$Child = function (a) {
+	return {ctor: 'Child', _0: a};
+};
