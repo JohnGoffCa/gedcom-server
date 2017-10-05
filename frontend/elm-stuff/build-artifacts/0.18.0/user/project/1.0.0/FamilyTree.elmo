@@ -1,0 +1,50 @@
+var _user$project$FamilyTree$subscriptions = function (model) {
+	return _elm_lang$core$Platform_Sub$none;
+};
+var _user$project$FamilyTree$update = F2(
+	function (msg, model) {
+		var _p0 = msg;
+		return {ctor: '_Tuple2', _0: model, _1: _elm_lang$core$Platform_Cmd$none};
+	});
+var _user$project$FamilyTree$detailView = function (person) {
+	return A2(
+		_elm_lang$html$Html$div,
+		{
+			ctor: '::',
+			_0: _elm_lang$html$Html_Attributes$class('person'),
+			_1: {ctor: '[]'}
+		},
+		{
+			ctor: '::',
+			_0: _elm_lang$html$Html$text('hello world'),
+			_1: {ctor: '[]'}
+		});
+};
+var _user$project$FamilyTree$treeView = function (people) {
+	return A2(
+		_elm_lang$html$Html$div,
+		{
+			ctor: '::',
+			_0: _elm_lang$html$Html_Attributes$class('tree'),
+			_1: {ctor: '[]'}
+		},
+		A2(_elm_lang$core$List$map, _user$project$FamilyTree$detailView, people));
+};
+var _user$project$FamilyTree$view = function (model) {
+	return _user$project$FamilyTree$treeView(model.people);
+};
+var _user$project$FamilyTree$Model = F2(
+	function (a, b) {
+		return {people: a, families: b};
+	});
+var _user$project$FamilyTree$init = {
+	ctor: '_Tuple2',
+	_0: A2(
+		_user$project$FamilyTree$Model,
+		A2(_elm_lang$core$List$repeat, 12, _user$project$Types$exampleMan),
+		A2(_elm_lang$core$List$repeat, 10, _user$project$Types$exampleFamily)),
+	_1: _elm_lang$core$Platform_Cmd$none
+};
+var _user$project$FamilyTree$main = _elm_lang$html$Html$program(
+	{init: _user$project$FamilyTree$init, view: _user$project$FamilyTree$view, update: _user$project$FamilyTree$update, subscriptions: _user$project$FamilyTree$subscriptions})();
+var _user$project$FamilyTree$NoOp = {ctor: 'NoOp'};

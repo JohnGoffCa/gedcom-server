@@ -6,14 +6,10 @@ type alias Person =
   , sex : String
   , events : List Event
   , attributes : List Attribute
-  , mother : Mother
-  , father : Father
-  , children : List Child
+  , mother : String
+  , father : String
+  , children : List String
   }
-
-type Mother = Mother (Person)
-type Father = Father (Person)
-type Child = Child (List Person)
 
 type alias Event =
   { evntType : String
@@ -33,29 +29,10 @@ type alias Family =
   }
 
 exampleMan =
-  { id = "I1"
-  , name = "John Smith"
-  , sex = "m"
-  , events = []
-  , attributes = []
-  , mother = Nothing
-  , father = Nothing
-  , children = []
-  }
+  Person "I1" "John Smith" "m" [] [] "I10" "I11" []
 
 exampleWoman =
-  { id = "I2"
-  , name = "Jane Smith"
-  , sex = "f"
-  , events = []
-  , attributes = []
-  , mother = Nothing
-  , father = Nothing
-  , children = []
-  }
+  Person "I2" "Jane Smith" "f" [] [] "I10" "I11" []
 
 exampleFamily =
-  { husband = exampleMan
-  , wife = exampleWoman
-  , children = []
-  }
+  Family exampleMan exampleWoman []
