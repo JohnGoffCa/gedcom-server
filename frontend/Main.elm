@@ -1,10 +1,10 @@
 module FamilyTree exposing (..)
 
-import Types exposing (Person, Family, exampleMan, exampleFamily)
+import Types exposing (Person, Family, exampleMan, exampleWoman, exampleFamily)
 
 import Html exposing (Html, text, div, program)
 import Html.Attributes exposing (class, src)
-import List exposing (map, repeat)
+import List exposing (concat, map, repeat)
 
 -- Model
 type alias Model = 
@@ -14,7 +14,7 @@ type alias Model =
 
 init : ( Model, Cmd Msg )
 init = 
-  (Model (repeat 12 exampleMan) (repeat 10 exampleFamily), Cmd.none)
+  (Model (concat [(repeat 6 exampleMan),(repeat 6 exampleWoman)] ) (repeat 10 exampleFamily), Cmd.none)
 
 -- Messages
 type Msg 
@@ -24,12 +24,12 @@ type Msg
 detailView : Person -> Html Msg
 detailView person =
   div [ class "person" ]
-      [ text "hello world" ]
+      [ text person.name ]
 
 treeView : List Person -> Html Msg
 treeView people =
   div [ class "tree" ]
-      (map detailView people)
+      ( map detailView people )
 
 view : Model -> Html Msg
 view model =

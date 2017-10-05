@@ -8205,7 +8205,7 @@ var _user$project$FamilyTree$detailView = function (person) {
 		},
 		{
 			ctor: '::',
-			_0: _elm_lang$html$Html$text('hello world'),
+			_0: _elm_lang$html$Html$text(person.name),
 			_1: {ctor: '[]'}
 		});
 };
@@ -8230,7 +8230,16 @@ var _user$project$FamilyTree$init = {
 	ctor: '_Tuple2',
 	_0: A2(
 		_user$project$FamilyTree$Model,
-		A2(_elm_lang$core$List$repeat, 12, _user$project$Types$exampleMan),
+		_elm_lang$core$List$concat(
+			{
+				ctor: '::',
+				_0: A2(_elm_lang$core$List$repeat, 6, _user$project$Types$exampleMan),
+				_1: {
+					ctor: '::',
+					_0: A2(_elm_lang$core$List$repeat, 6, _user$project$Types$exampleWoman),
+					_1: {ctor: '[]'}
+				}
+			}),
 		A2(_elm_lang$core$List$repeat, 10, _user$project$Types$exampleFamily)),
 	_1: _elm_lang$core$Platform_Cmd$none
 };

@@ -35,4 +35,4 @@ exampleWoman =
   Person "I2" "Jane Smith" "f" [] [] "I10" "I11" []
 
 exampleFamily =
-  Family exampleMan exampleWoman []
+  Family exampleMan exampleWoman [exampleMan, exampleWoman]

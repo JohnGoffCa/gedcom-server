@@ -38,4 +38,12 @@ var _user$project$Types$exampleFamily = A3(
 	_user$project$Types$Family,
 	_user$project$Types$exampleMan,
 	_user$project$Types$exampleWoman,
-	{ctor: '[]'});
+	{
+		ctor: '::',
+		_0: _user$project$Types$exampleMan,
+		_1: {
+			ctor: '::',
+			_0: _user$project$Types$exampleWoman,
+			_1: {ctor: '[]'}
+		}
+	});
