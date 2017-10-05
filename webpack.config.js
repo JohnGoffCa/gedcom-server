@@ -3,12 +3,12 @@ var path = require("path");
 module.exports = {
   entry: {
     app: [
-      './assets/index.js'
+      './assets/app.js'
     ]
   },
 
   output: {
-    path: path.resolve(__dirname + '/dist'),
+    path: path.resolve(__dirname + '/assets/js'),
     filename: '[name].js',
   },
 

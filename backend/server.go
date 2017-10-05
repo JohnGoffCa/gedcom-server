@@ -21,7 +21,7 @@ func main() {
 	////////////
 	// ROUTES //
 	////////////
-	router.Get("/", http.FileServer(http.Dir("./assets")).ServeHTTP)
+	router.Get("/*", http.FileServer(http.Dir("./assets")).ServeHTTP)
 	router.Get("/api/individual", individualList)
 	router.Get("/api/individual/:id", individual)
 	router.Get("/api/family", familyList)
