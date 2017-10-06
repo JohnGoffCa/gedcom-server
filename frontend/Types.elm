@@ -28,11 +28,14 @@ type alias Family =
   , children : List Person
   }
 
+exampleMan : Person
 exampleMan =
   Person "I1" "John Smith" "m" [] [] "I10" "I11" []
 
+exampleWoman : Person
 exampleWoman =
   Person "I2" "Jane Smith" "f" [] [] "I10" "I11" []
 
+exampleFamily : Family
 exampleFamily =
   Family exampleMan exampleWoman [exampleMan, exampleWoman]
