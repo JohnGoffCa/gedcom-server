@@ -24,7 +24,11 @@ type Msg
 detailView : Person -> Html Msg
 detailView person =
   div [ class "person" ]
-      [ text person.name ]
+      [ text person.name
+      , text person.sex
+      , text person.mother
+      , text person.father
+      ]
 
 treeView : List Person -> Html Msg
 treeView people =

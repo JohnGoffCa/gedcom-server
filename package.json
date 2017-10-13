@@ -16,9 +16,9 @@
   },
   "devDependencies": {},
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "npm build && npm api",
     "api": "go build -o gedcom-server ./backend/ && ./gedcom-server",
-    "build": "webpack",
+    "build": "elm make frontend/Main.elm --output=assets/js/app.js",
     "client": "webpack-dev-server --port 3000"
   },
   "repository": {
