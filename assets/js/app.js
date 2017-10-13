@@ -8156,8 +8156,8 @@ var _user$project$Types$exampleMan = A8(
 	'm',
 	{ctor: '[]'},
 	{ctor: '[]'},
-	'I10',
-	'I11',
+	_elm_lang$core$Maybe$Just('I10'),
+	_elm_lang$core$Maybe$Just('I11'),
 	{ctor: '[]'});
 var _user$project$Types$exampleWoman = A8(
 	_user$project$Types$Person,
@@ -8166,8 +8166,8 @@ var _user$project$Types$exampleWoman = A8(
 	'f',
 	{ctor: '[]'},
 	{ctor: '[]'},
-	'I10',
-	'I11',
+	_elm_lang$core$Maybe$Just('I10'),
+	_elm_lang$core$Maybe$Just('I11'),
 	{ctor: '[]'});
 var _user$project$Types$Event = F3(
 	function (a, b, c) {
@@ -8185,7 +8185,15 @@ var _user$project$Types$exampleFamily = A3(
 	_user$project$Types$Family,
 	_user$project$Types$exampleMan,
 	_user$project$Types$exampleWoman,
-	{ctor: '[]'});
+	{
+		ctor: '::',
+		_0: _user$project$Types$exampleMan,
+		_1: {
+			ctor: '::',
+			_0: _user$project$Types$exampleWoman,
+			_1: {ctor: '[]'}
+		}
+	});
 
 var _user$project$FamilyTree$subscriptions = function (model) {
 	return _elm_lang$core$Platform_Sub$none;

@@ -64,15 +64,15 @@ func family(w http.ResponseWriter, r *http.Request) {
 
 		fmt.Fprintln(w, "{")
 		fmt.Fprintln(w, `"id":"`+rec.Xref+`",`)
-		fmt.Fprintln(w, `"Husband":"`+fixName(rec.Husband.Name[0].Name)+`",`)
-		fmt.Fprintln(w, `"Wife":"`+fixName(rec.Wife.Name[0].Name)+`",`)
+		fmt.Fprintln(w, `"Husband":"`+fixName(rec.Husband.Xref)+`",`)
+		fmt.Fprintln(w, `"Wife":"`+fixName(rec.Wife.Xref)+`",`)
 		fmt.Fprintln(w, `"Children":[`)
 		for i, child := range rec.Child {
 			if i != 0 {
 				fmt.Fprint(w, ",")
 			}
 			if len(child.Name) > 0 {
-				fmt.Fprintln(w, `"`+fixName(child.Name[0].Name)+`"`)
+				fmt.Fprintln(w, `"`+fixName(child.Xref)+`"`)
 			}
 		}
 		fmt.Fprintln(w, "]")
@@ -104,50 +104,54 @@ func individual(w http.ResponseWriter, r *http.Request) {
 			continue
 		}
 
-		fmt.Fprintln(w, "{")
-		fmt.Fprintln(w, `"id":"`+rec.Xref+`",`)
-		fmt.Fprintln(w, `"name":"`+fixName(rec.Name[0].Name)+`",`)
-		fmt.Fprintln(w, `"sex":"`+rec.Sex+`",`)
-		fmt.Fprintln(w, `"events":[`)
+		fmt.Fprint(w, "{")
+		fmt.Fprint(w, `"id":"`+rec.Xref+`",`)
+		fmt.Fprint(w, `"name":"`+fixName(rec.Name[0].Name)+`",`)
+		fmt.Fprint(w, `"sex":"`+rec.Sex+`",`)
+		fmt.Fprint(w, `"events":[`)
 		for i, evnt := range rec.Event {
 			if i != 0 {
 				fmt.Fprint(w, ",")
 			}
-			fmt.Fprintln(w, "{")
-			fmt.Fprintln(w, `"event":"`+evnt.Tag+`",`)
-			fmt.Fprintln(w, `"date":"`+evnt.Date+`",`)
-			fmt.Fprintln(w, `"place":"`+evnt.Place.Name+`"`)
-			fmt.Fprintln(w, "}")
+			fmt.Fprint(w, "{")
+			fmt.Fprint(w, `"event":"`+evnt.Tag+`",`)
+			fmt.Fprint(w, `"date":"`+evnt.Date+`",`)
+			fmt.Fprint(w, `"place":"`+evnt.Place.Name+`"`)
+			fmt.Fprint(w, "}")
 		}
-		fmt.Fprintln(w, `],`)
-		fmt.Fprintln(w, `"attributes":[`)
+		fmt.Fprint(w, `],`)
+		fmt.Fprint(w, `"attributes":[`)
 		for i, attr := range rec.Attribute {
 			if i != 0 {
 				fmt.Fprint(w, ",")
 			}
-			fmt.Fprintln(w, "{")
-			fmt.Fprintln(w, `"tag":"`+attr.Tag+`",`)
-			fmt.Fprintln(w, `"value":"`+attr.Value+`"`)
-			fmt.Fprintln(w, "}")
+			fmt.Fprint(w, "{")
+			fmt.Fprint(w, `"tag":"`+attr.Tag+`",`)
+			fmt.Fprint(w, `"value":"`+attr.Value+`"`)
+			fmt.Fprint(w, "}")
 		}
-		fmt.Fprintln(w, `]`)
-		fmt.Fprintln(w, `,"parents":[`)
+		fmt.Fprint(w, `],`)
+		fmt.Fprint(w, `"mother":"`)
 		if len(rec.Parents) > 0 {
-			fmt.Fprintln(w, `"`+fixName(rec.Parents[0].Family.Husband.Name[0].Name)+`",`)
-			fmt.Fprintln(w, `"`+fixName(rec.Parents[0].Family.Wife.Name[0].Name)+`"`)
+			fmt.Fprint(w, fixName(rec.Parents[0].Family.Wife.Xref))
 		}
-		fmt.Fprintln(w, "],")
-		fmt.Fprintln(w, `"children":[`)
+		fmt.Fprint(w, `",`)
+		fmt.Fprint(w, `"father":"`)
+		if len(rec.Parents) > 0 {
+			fmt.Fprint(w, fixName(rec.Parents[0].Family.Husband.Xref))
+		}
+		fmt.Fprint(w, `",`)
+		fmt.Fprint(w, `"children":[`)
 		if len(rec.Family) > 0 {
 			for i, child := range rec.Family[0].Family.Child {
 				if len(child.Name) > 0 {
 					if i != 0 {
 						fmt.Fprint(w, ",")
 					}
-					fmt.Fprintln(w, `"`+fixName(child.Name[0].Name)+`"`)
+					fmt.Fprint(w, `"`+fixName(child.Xref)+`"`)
 				}
 			}
 		}
-		fmt.Fprintln(w, "]}")
+		fmt.Fprint(w, "]}")
 	}
 }

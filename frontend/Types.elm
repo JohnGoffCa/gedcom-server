@@ -17,6 +17,9 @@ type alias Event =
   , place : String
   }
 
+type alias EventList =
+  { events : List Event }
+
 type alias Attribute =
   { attrType : String
   , value : String
