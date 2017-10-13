@@ -16,7 +16,7 @@
   },
   "devDependencies": {},
   "scripts": {
-    "start": "npm build && npm api",
+    "start": "npm run build && npm run api",
     "api": "go build -o gedcom-server ./backend/ && ./gedcom-server",
     "build": "elm make frontend/Main.elm --output=assets/js/app.js",
     "client": "webpack-dev-server --port 3000"

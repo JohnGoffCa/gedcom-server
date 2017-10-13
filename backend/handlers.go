@@ -42,18 +42,14 @@ func fixName(name string) string {
 	* writes JSON representing the entire list of families from GEDCOM
  **/
 func familyList(w http.ResponseWriter, r *http.Request) {
-	fmt.Fprintln(w, "{")
+	fmt.Fprintln(w, "[")
 	for i, rec := range g.Family {
 		if i != 0 {
 			fmt.Fprint(w, ",")
 		}
-		fmt.Fprintf(w, `"%s":["%s","%s"]`,
-			rec.Xref,
-			fixName(rec.Husband.Name[0].Name),
-			fixName(rec.Wife.Name[0].Name),
-		)
+		fmt.Fprintf(w, `"%s"`, rec.Xref)
 	}
-	fmt.Fprintln(w, "}")
+	fmt.Fprintln(w, "]")
 }
 
 func family(w http.ResponseWriter, r *http.Request) {
@@ -63,16 +59,16 @@ func family(w http.ResponseWriter, r *http.Request) {
 		}
 
 		fmt.Fprintln(w, "{")
-		fmt.Fprintln(w, `"id":"`+rec.Xref+`",`)
-		fmt.Fprintln(w, `"Husband":"`+fixName(rec.Husband.Xref)+`",`)
-		fmt.Fprintln(w, `"Wife":"`+fixName(rec.Wife.Xref)+`",`)
+		fmt.Fprintf(w, `"id":"%s",`, rec.Xref)
+		fmt.Fprintf(w, `"Husband":"%s",`, fixName(rec.Husband.Xref))
+		fmt.Fprintf(w, `"Wife":"%s",`, fixName(rec.Wife.Xref))
 		fmt.Fprintln(w, `"Children":[`)
 		for i, child := range rec.Child {
 			if i != 0 {
 				fmt.Fprint(w, ",")
 			}
 			if len(child.Name) > 0 {
-				fmt.Fprintln(w, `"`+fixName(child.Xref)+`"`)
+				fmt.Fprintf(w, `"%s"`, fixName(child.Xref))
 			}
 		}
 		fmt.Fprintln(w, "]")
@@ -84,14 +80,14 @@ func family(w http.ResponseWriter, r *http.Request) {
 	* writes JSON representing the entire list of individuals from GEDCOM
  **/
 func individualList(w http.ResponseWriter, r *http.Request) {
-	fmt.Fprintln(w, "{")
+	fmt.Fprintln(w, "[")
 	for i, rec := range g.Individual {
 		if i != 0 {
 			fmt.Fprint(w, ",")
 		}
-		fmt.Fprintf(w, `"%s":"%s"`, rec.Xref, fixName(rec.Name[0].Name))
+		fmt.Fprintf(w, `"%s`, rec.Xref)
 	}
-	fmt.Fprintln(w, "}")
+	fmt.Fprintln(w, "]")
 }
 
 /** individual
@@ -105,18 +101,18 @@ func individual(w http.ResponseWriter, r *http.Request) {
 		}
 
 		fmt.Fprint(w, "{")
-		fmt.Fprint(w, `"id":"`+rec.Xref+`",`)
-		fmt.Fprint(w, `"name":"`+fixName(rec.Name[0].Name)+`",`)
-		fmt.Fprint(w, `"sex":"`+rec.Sex+`",`)
+		fmt.Fprintf(w, `"id":"%s",`, rec.Xref)
+		fmt.Fprintf(w, `"name":"%s",`, fixName(rec.Name[0].Name))
+		fmt.Fprintf(w, `"sex":"%s",`, rec.Sex)
 		fmt.Fprint(w, `"events":[`)
 		for i, evnt := range rec.Event {
 			if i != 0 {
 				fmt.Fprint(w, ",")
 			}
 			fmt.Fprint(w, "{")
-			fmt.Fprint(w, `"event":"`+evnt.Tag+`",`)
-			fmt.Fprint(w, `"date":"`+evnt.Date+`",`)
-			fmt.Fprint(w, `"place":"`+evnt.Place.Name+`"`)
+			fmt.Fprintf(w, `"event":"%s",`, evnt.Tag)
+			fmt.Fprintf(w, `"date":"%s",`, evnt.Date)
+			fmt.Fprintf(w, `"place":"%s"`, evnt.Place.Name)
 			fmt.Fprint(w, "}")
 		}
 		fmt.Fprint(w, `],`)
@@ -126,8 +122,8 @@ func individual(w http.ResponseWriter, r *http.Request) {
 				fmt.Fprint(w, ",")
 			}
 			fmt.Fprint(w, "{")
-			fmt.Fprint(w, `"tag":"`+attr.Tag+`",`)
-			fmt.Fprint(w, `"value":"`+attr.Value+`"`)
+			fmt.Fprintf(w, `"tag":"%s",`, attr.Tag)
+			fmt.Fprintf(w, `"value":"%s"`, attr.Value)
 			fmt.Fprint(w, "}")
 		}
 		fmt.Fprint(w, `],`)
@@ -148,7 +144,7 @@ func individual(w http.ResponseWriter, r *http.Request) {
 					if i != 0 {
 						fmt.Fprint(w, ",")
 					}
-					fmt.Fprint(w, `"`+fixName(child.Xref)+`"`)
+					fmt.Fprintf(w, `"%s"`, fixName(child.Xref))
 				}
 			}
 		}

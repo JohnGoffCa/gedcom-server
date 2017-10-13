@@ -2,9 +2,10 @@ module FamilyTree exposing (..)
 
 import Types exposing (Person, Family, exampleMan, exampleWoman, exampleFamily)
 
-import Html exposing (Html, text, div, program)
+import Html exposing (Html, text, p, h3, div, program)
 import Html.Attributes exposing (class, src)
 import List exposing (concat, map, repeat)
+import Http
 
 -- Model
 type alias Model = 
@@ -14,20 +15,24 @@ type alias Model =
 
 init : ( Model, Cmd Msg )
 init = 
-  (Model (concat [(repeat 6 exampleMan),(repeat 6 exampleWoman)] ) (repeat 10 exampleFamily), Cmd.none)
+  (Model [] [], Fetch)
 
 -- Messages
 type Msg 
-  = NoOp
+  = Fetch
+  | NewFamilyList (Result Http.Error String)
 
 -- View
 detailView : Person -> Html Msg
 detailView person =
   div [ class "person" ]
-      [ text person.name
-      , text person.sex
-      , text person.mother
-      , text person.father
+      [ h3 [] [ text ("Person " ++ person.id) ]
+      , p []
+        [ text (person.name ++ ", ")
+        , text (person.sex ++ ", ")
+        , text (person.mother ++ ", ")
+        , text (person.father)
+        ]
       ]
 
 treeView : List Person -> Html Msg
@@ -43,7 +48,7 @@ view model =
 update : Msg -> Model -> ( Model, Cmd Msg )
 update msg model =
     case msg of
-        NoOp ->
+        NewFamilyList (Ok, listOfFamilyID) ->
             ( model, Cmd.none )
 
 --subscriptions 

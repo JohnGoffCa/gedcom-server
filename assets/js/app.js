@@ -8213,8 +8213,23 @@ var _user$project$FamilyTree$detailView = function (person) {
 		},
 		{
 			ctor: '::',
-			_0: _elm_lang$html$Html$text(person.name),
-			_1: {ctor: '[]'}
+			_0: _elm_lang$html$Html$text(
+				A2(_elm_lang$core$Basics_ops['++'], person.name, ', ')),
+			_1: {
+				ctor: '::',
+				_0: _elm_lang$html$Html$text(
+					A2(_elm_lang$core$Basics_ops['++'], person.sex, ', ')),
+				_1: {
+					ctor: '::',
+					_0: _elm_lang$html$Html$text(
+						A2(_elm_lang$core$Basics_ops['++'], person.mother, ', ')),
+					_1: {
+						ctor: '::',
+						_0: _elm_lang$html$Html$text(person.father),
+						_1: {ctor: '[]'}
+					}
+				}
+			}
 		});
 };
 var _user$project$FamilyTree$treeView = function (people) {

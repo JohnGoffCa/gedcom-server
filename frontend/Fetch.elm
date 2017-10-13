@@ -2,6 +2,15 @@ module Fetch exposing (..)
 
 import Json.Decode exposing (string, list, map, map2, map3, map8, field, Decoder)
 import Types exposing (Person, Event, Attribute)
+import Http exposing (get, send)
+
+fetch =
+  let 
+      family = "api/family"
+      individual = "api/individual"
+  in 
+      send NewFamilyList (get family (list string))
+      send NewIndividualList (get individual (list string))
 
 personDecoder : Decoder Person
 personDecoder =
