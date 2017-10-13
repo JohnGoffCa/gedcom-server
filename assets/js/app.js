@@ -8156,8 +8156,8 @@ var _user$project$Types$exampleMan = A8(
 	'm',
 	{ctor: '[]'},
 	{ctor: '[]'},
-	_elm_lang$core$Maybe$Just('I10'),
-	_elm_lang$core$Maybe$Just('I11'),
+	'I10',
+	'I11',
 	{ctor: '[]'});
 var _user$project$Types$exampleWoman = A8(
 	_user$project$Types$Person,
@@ -8166,8 +8166,8 @@ var _user$project$Types$exampleWoman = A8(
 	'f',
 	{ctor: '[]'},
 	{ctor: '[]'},
-	_elm_lang$core$Maybe$Just('I10'),
-	_elm_lang$core$Maybe$Just('I11'),
+	'I10',
+	'I11',
 	{ctor: '[]'});
 var _user$project$Types$Event = F3(
 	function (a, b, c) {

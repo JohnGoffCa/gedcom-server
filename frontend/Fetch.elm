@@ -1,28 +1,30 @@
 module Fetch exposing (..)
 
-import Json.Decode exposing (string, list, nullable, map7, at, Decoder)
-import Json.Decode.Pipeline exposing (decode, requiredAt, required, optional, hardcoded)
+import Json.Decode exposing (string, list, map, map2, map3, map8, field, Decoder)
 import Types exposing (Person, Event, Attribute)
 
 personDecoder : Decoder Person
 personDecoder =
-  decode Person
-  |> required "id" string
-  |> required "name" string
-  |> required "sex" string
-  |> requiredAt ["events"] (list eventDecoder)
-  |> required "mother" (nullable string)
-  |> required "father" (nullable string)
-  |> required "children" (list string)
+  map8 Person
+    (field "id" string)
+    (field "name" string)
+    (field "sex" string)
+    (field "events" (list eventDecoder))
+    (field "attributes" (list attributeDecoder))
+    (field "mother" string)
+    (field "father" string)
+    (field "children" (list string))
 
-
-eventListDecoder : Decoder (List Event)
-eventListDecoder =
-  list eventDecoder
 
 eventDecoder : Decoder Event
 eventDecoder =
-  decode Event
-  |> requiredAt ["events", "evntType"] string
-  |> requiredAt ["events", "date"] string
-  |> requiredAt ["events", "place"] string
+  map3 Event
+    (field "evntType" string)
+    (field "date" string)
+    (field "place" string)
+
+attributeDecoder : Decoder Attribute
+attributeDecoder =
+  map2 Attribute
+    (field "tag" string)
+    (field "value" string)
