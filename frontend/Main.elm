@@ -1,4 +1,4 @@
-module FamilyTree exposing (..)
+module Main exposing (..)
 
 import Types exposing (Person, Family, exampleMan, exampleWoman, exampleFamily)
 
@@ -14,13 +14,13 @@ type alias Model =
   }
 
 init : ( Model, Cmd Msg )
-init = 
-  (Model [] [], Fetch)
+init =
+  (Model [] [], Cmd.none)
 
 -- Messages
 type Msg 
   = Fetch
-  | NewFamilyList (Result Http.Error String)
+  | NewFamilyList (Result Http.Error (List String))
 
 -- View
 detailView : Person -> Html Msg
@@ -48,7 +48,11 @@ view model =
 update : Msg -> Model -> ( Model, Cmd Msg )
 update msg model =
     case msg of
-        NewFamilyList (Ok, listOfFamilyID) ->
+        Fetch ->
+            ( model, Cmd.none )
+        NewFamilyList (Ok listOfFamilyID) ->
+            ( model, Cmd.none )
+        NewFamilyList (Err _) ->
             ( model, Cmd.none )
 
 --subscriptions 
